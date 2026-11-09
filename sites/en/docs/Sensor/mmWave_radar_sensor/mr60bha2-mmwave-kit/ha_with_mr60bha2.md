@@ -234,113 +234,126 @@ To get started with ESPHome, follow these steps:
 2. **Create a New Configuration**: Click on the device to open its configuration. Here, you can adjust settings such as the sensor's sensitivity, reporting intervals, and output formats. ESPHome uses a YAML configuration format, which is user-friendly and allows you to define various parameters. You can use the following template YAML file as a starting point for your configuration, which is designed specifically for the MR60BHA2 Sensor:
 
   ```yaml showLineNumbers title=example/mr60bha2.yaml
-    # template from https://github.com/limengdu/MR60BHA2_ESPHome_external_components
-    substitutions:
-      name: "seeedstudio-mr60bha2-kit"
-      friendly_name: "seeedstudio-mr60bha2-kit"
+  substitutions:
+    name: "seeedstudio-mr60bha2-kit"
+    friendly_name: "Seeed Studio MR60BHA2 Kit"
 
-    esphome:
-      name: "${name}"
-      friendly_name: "${friendly_name}"
-      name_add_mac_suffix: true
-      project:
-        name: "seeedstudio.mr60bha2_kit"
-        version: "3.5"
-      platformio_options:
-        board_upload.maximum_size: 4194304
-      min_version: "2024.3.2" # Fix logger compile error on ESP32-C6 esphome#6323
+  esphome:
+    name: "${name}"
+    friendly_name: "${friendly_name}"
+    name_add_mac_suffix: true
+    project:
+      name: "seeedstudio.mr60bha2_kit"
+      version: "3.6"
+    min_version: "2024.3.2" # Fix logger compile error on ESP32-C6 esphome#6323
 
+  esp32:
+    board: esp32-c6-devkitc-1
+    variant: esp32c6
+    flash_size: 4MB # upload.flash_size
+    framework:
+      type: esp-idf
 
-    esp32:
-      board: esp32-c6-devkitc-1
-      variant: esp32c6
-      flash_size: 4MB # upload.flash_size
-      framework:
-        type: esp-idf
+  external_components:
+    - source:
+        type: git
+        url: https://github.com/limengdu/MR60BHA2_ESPHome_external_components
+        ref: main
+      components: [ seeed_mr60bha2 ]
+      refresh: 0s
 
-    # If you want to experience the latest components, you can remove this comment.
-    # external_components:
-    #   - source:
-    #       type: git
-    #       url: https://github.com/limengdu/MR60BHA2_ESPHome_external_components
-    #       ref: main
-    #     components: [ seeed_mr60bha2 ]
-    #     refresh: 0s
+  # Enable logging
+  logger:
+    hardware_uart: USB_SERIAL_JTAG
+    level: DEBUG
 
-    # Enable logging
-    logger:
-      hardware_uart: USB_SERIAL_JTAG
-      level: DEBUG
+  # Enable Home Assistant API
+  api:
 
-    # Enable Home Assistant API
-    api:
+  ota:
+    - platform: esphome
 
-    ota:
-      - platform: esphome
-
-    # It is highly recommended to use secrets
   wifi:
     ssid: !secret wifi_ssid
     password: !secret wifi_password
+    # ESPHome's default modem-sleep power saving stalls and drops the link on
+    # the ESP32-C6; keep the radio always on. See #70.
+    power_save_mode: none
+    # Enable fallback hotspot (captive portal) in case wifi connection fails
+    ap:
+      ssid: "seeedstudio-mr60bha2"
 
-      ap:
-        ssid: "seeedstudio-mr60bha2"
+  captive_portal:
 
+  # XIAO ESP32-C6 RF switch. This config builds with ESP-IDF, which unlike the
+  # Arduino core does not configure the RF switch at startup, leaving the
+  # built-in antenna path degraded. GPIO switches are set up at HARDWARE
+  # priority, before Wi-Fi. See #70.
+  switch:
+    - platform: gpio
+      id: rf_switch_power
+      pin: GPIO3 # driven LOW: powers the RF switch on
+      restore_mode: ALWAYS_OFF
+      internal: true
+    - platform: gpio
+      id: rf_antenna_select
+      # driven LOW: built-in ceramic antenna. To use an external U.FL antenna
+      # instead, set this switch's restore_mode to ALWAYS_ON.
+      pin: GPIO14
+      restore_mode: ALWAYS_OFF
+      internal: true
 
-    captive_portal:
+  # For XIAO ESP32C6 Onboard LED
+  # light:
+  #   - platform: status_led
+  #     name: "Switch state"
+  #     pin: GPIO15
 
-    # For XIAO ESP32C6 Onboard LED
-    # light:
-    #   - platform: status_led
-    #     name: "Switch state"
-    #     pin: GPIO15
+  light:
+    - platform: esp32_rmt_led_strip
+      id: led_ring
+      name: "Seeed MR60BHA2 RGB Light"
+      pin: GPIO1
+      num_leds: 1
+      channel_colors: GRB
+      chipset: ws2812
 
+  i2c:
+    sda: GPIO22
+    scl: GPIO23
+    scan: true
+    id: bus_a
 
-    light:
-      - platform: esp32_rmt_led_strip
-        id: led_ring
-        name: "Seeed MR60BHA2 RGB Light"
-        pin: GPIO1
-        num_leds: 1
-        rgb_order: GRB
-        chipset: ws2812
+  uart:
+    id: uart_bus
+    baud_rate: 115200
+    rx_pin: 17
+    tx_pin: 16
+    parity: NONE
+    stop_bits: 1
 
-    i2c:
-      sda: GPIO22
-      scl: GPIO23
-      scan: true
-      id: bus_a
+  seeed_mr60bha2:
+    id: my_seeed_mr60bha2
 
-    uart:
-      id: uart_bus
-      baud_rate: 115200
-      rx_pin: 17
-      tx_pin: 16
-      parity: NONE
-      stop_bits: 1
+  binary_sensor:
+    - platform: seeed_mr60bha2
+      has_target:
+        name: "Person Information"
 
-    seeed_mr60bha2:
-      id: my_seeed_mr60bha2
-
-    binary_sensor:
-      - platform: seeed_mr60bha2
-        has_target:
-          name: "Person Information"
-
-    sensor:
-      - platform: bh1750
-        name: "Seeed MR60BHA2 Illuminance"
-        address: 0x23
-        update_interval: 1s
-      - platform: seeed_mr60bha2
-        breath_rate:
-          name: "Real-time respiratory rate"
-        heart_rate:
-          name: "Real-time heart rate"
-        distance:
-          name: "Distance to detection object"
-        num_targets:
-          name: "Target number"
+  sensor:
+    - platform: bh1750
+      name: "Seeed MR60BHA2 Illuminance"
+      address: 0x23
+      update_interval: 1s
+    - platform: seeed_mr60bha2
+      breath_rate:
+        name: "Real-time respiratory rate"
+      heart_rate:
+        name: "Real-time heart rate"
+      distance:
+        name: "Distance to detection object"
+      num_targets:
+        name: "Target Number"
   ```
 
 3. **Customize Functionality**: You can enhance the sensor's capabilities by exploring various features available in ESPHome, allowing for flexible adjustments to suit your specific needs.

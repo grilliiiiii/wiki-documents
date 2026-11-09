@@ -553,6 +553,7 @@ sensor:
   - platform: adc
     pin: GPIO0
     name: "Battery measurement"
+    device_class: "battery"
     attenuation: 12db
     # internal: true
     filters:                     # When the battery drops below 1V, it is dead.
@@ -569,7 +570,7 @@ sensor:
     force_update: True
 
   - platform: wifi_signal
-    name: "wifi singnal strength"
+    name: "wifi signal strength"
     update_interval: 10s
 
 # text_sensor:
@@ -611,11 +612,6 @@ text_sensor:
 interval:
   - interval: 5s
     then:
-      - text_sensor.template.publish:
-          id: soil_status
-          state: !lambda |-
-            return "";
-      - delay: 10ms
       - text_sensor.template.publish:
           id: soil_status
           state: !lambda |-
