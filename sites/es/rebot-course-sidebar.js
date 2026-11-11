@@ -212,6 +212,8 @@ const sidebars = {
             { type: 'doc', id: `${P}/es_Paper_Reading_GR00T_N1`, label: 'NVIDIA GR00T — Adaptación y Fine-Tuning' },
             { type: 'doc', id: `${P}/es_Paper_Reading_EO1`, label: 'EO-1 — Preentrenamiento Multimodal Intercalado' },
             { type: 'doc', id: `${P}/es_Paper_Reading_WALL_OSS`, label: 'WALL-OSS — Razonamiento Encarnado y Control de Robots' },
+            { type: 'doc', id: `${P}/es_Paper_Reading_LINGBOT_VLA2`, label: 'LingBot-VLA 2.0 — Acciones entre Distintos Cuerpos y Percepción del Futuro' },
+            { type: 'doc', id: `${P}/es_Paper_Reading_DM05`, label: 'DM0.5 — Contexto Histórico y Alineación de Trayectorias' },
           ],
         },
         {
@@ -226,6 +228,12 @@ const sidebars = {
               id: `${P}/es_Paper_Reading_VLA_JEPA`,
               label: 'VLA-JEPA — Supervisión por video y modelos de mundo latentes',
             },
+            {
+              type: 'doc',
+              id: `${P}/es_Paper_Reading_LINGBOT_VA`,
+              label: 'LingBot-VA — Un modelo causal del mundo desde imágenes futuras hasta acciones de robot',
+            },
+            { type: 'doc', id: `${P}/es_Paper_Reading_GR00T_2`, label: 'GR00T 2 — Modelado de Mundo-Acción Conjunto' },
           ],
         },
         {

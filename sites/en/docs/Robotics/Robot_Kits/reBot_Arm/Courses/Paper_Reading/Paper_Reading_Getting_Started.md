@@ -69,7 +69,7 @@ import '/src/css/paper-reading-style.css';
     </ul>
   </div>
   <div className="sensecraft-banner__actions">
-    <a className="sensecraft-banner__cta" href="https://sensecraft.seeed.cc/en?utm_source=rebot_wiki&utm_medium=wiki&utm_campaign=sensecraft_banner" target="_blank" rel="noopener noreferrer">Go to SenseCraft Robotics ↗</a>
+    <a className="sensecraft-banner__cta" href="https://sensecraft.seeed.cc/en/download?utm_source=rebot_wiki&utm_medium=wiki&utm_campaign=sensecraft_banner" target="_blank" rel="noopener noreferrer">Go to SenseCraft Robotics ↗</a>
     <a className="sensecraft-banner__link" href="/sensecraft_robotics/">Software guide</a>
   </div>
 </div>
@@ -113,10 +113,14 @@ import '/src/css/paper-reading-style.css';
         <li><a href="/robotics/paper_reading_gr00t_n1/">NVIDIA GR00T — Adaptation &amp; Fine-Tuning</a></li>
         <li><a href="/robotics/paper_reading_eo1/">EO-1 — Interleaved Multimodal Pre-Training</a></li>
         <li><a href="/robotics/paper_reading_wall_oss/">WALL-OSS — Embodied Reasoning &amp; Robot Control</a></li>
+        <li><a href="/robotics/paper_reading_lingbot_vla2/">LingBot-VLA 2.0 — Cross-Embodiment Actions &amp; Future Perception</a></li>
+        <li><a href="/robotics/paper_reading_dm05/">DM0.5 — Historical Context &amp; Trajectory Alignment</a></li>
       </ul>
       <h3>Part 5 · World Models &amp; Video-Action Learning</h3>
       <ul className="paper-reading-directory-list">
         <li><a href="/robotics/paper_reading_vla_jepa/">VLA-JEPA — Video Supervision &amp; Latent World Models</a></li>
+        <li><a href="/robotics/paper_reading_lingbot_va/">LingBot-VA — Causal World Modeling &amp; Robot Control</a></li>
+        <li><a href="/robotics/paper_reading_gr00t_2/">GR00T 2 — Joint World-Action Modeling</a></li>
       </ul>
       <h3>Part 6 · Unified Evaluation &amp; Research Summary</h3>
       <span className="paper-reading-update-badge">
