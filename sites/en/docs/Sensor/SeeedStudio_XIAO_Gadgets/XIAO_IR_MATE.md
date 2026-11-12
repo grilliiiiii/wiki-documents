@@ -270,7 +270,7 @@ esphome:
   name_add_mac_suffix: True
 
 esp32:
-  board: esp32-c3-devkitm-1
+  board: seeed_xiao_esp32c3
   framework:
     type: arduino
 
