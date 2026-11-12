@@ -277,8 +277,6 @@ Home Assistant 强大的自动化功能允许您基于从 MR60FDA2 传感器收�
       - platform: esphome
 
     wifi:
-      ssid: !secret wifi_ssid
-      password: !secret wifi_password
       # Enable fallback hotspot (captive portal) in case wifi connection fails
       ap:
         ssid: "seeedstudio-mr60fda2"
@@ -349,7 +347,7 @@ Home Assistant 强大的自动化功能允许您基于从 MR60FDA2 传感器收�
     ```
 
 3. **自定义功能**：您可以通过探索 ESPHome 中提供的各种功能来增强传感器的能力，允许灵活调整以满足您的特定需求。
-4. **上传更新的固件**：进行修改后，保存配置。ESPHome 仪表板允许您直接通过无线方式上传固件。只需点击 `Upload` 按钮，并按照提示完成该过程。这种简化的方法使保持固件最新变得容易。
+4. **上传更新后的固件**。保存配置并按 ESPHome Device Builder 的提示上传。设备离线时可通过 USB 上传。设备启动后，连接 `seeedstudio-mr60fda2` 热点，在配网页面填写 Wi-Fi 信息。
 5. **测试和迭代**：上传完成后，实时测试您的更改。监控传感器的性能以确保其按预期运行。如果遇到任何问题，请重新访问 ESPHome 仪表板以优化您的设置。这种迭代方法使您能够持续改进固件，确保其有效满足您的要求。
 
 通过使用 ESPHome，您可以对传感器设置进行持续改进，使其适应您不断变化的需求。这种能力不仅增强了项目的功能性，还为学习和实验物联网开发提供了平台。

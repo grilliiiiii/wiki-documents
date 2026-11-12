@@ -277,8 +277,6 @@ To get started with ESPHome, follow these steps:
       - platform: esphome
 
     wifi:
-      ssid: !secret wifi_ssid
-      password: !secret wifi_password
       # Enable fallback hotspot (captive portal) in case wifi connection fails
       ap:
         ssid: "seeedstudio-mr60fda2"
@@ -349,7 +347,7 @@ To get started with ESPHome, follow these steps:
     ```
 
 3. **Customize Functionality**: You can enhance the sensor's capabilities by exploring various features available in ESPHome, allowing for flexible adjustments to suit your specific needs.
-4. **Upload the Updated Firmware**: After making your modifications, save the configuration. The ESPHome dashboard allows you to upload the firmware directly over the air. Simply click the `Upload` button, and follow the prompts to complete the process. This streamlined method makes it easy to keep your firmware up to date.
+4. **Upload the updated firmware**. Save the configuration and follow the ESPHome Device Builder upload prompts. If the device is offline, connect it over USB for the upload. After it boots, connect to the `seeedstudio-mr60fda2` hotspot and enter your Wi-Fi credentials in the captive portal.
 5. **Test and Iterate**: Once the upload is complete, test your changes in real-time. Monitor the sensor's performance to ensure it operates as expected. If you encounter any issues, revisit the ESPHome dashboard to refine your settings. This iterative approach enables you to continually improve your firmware, ensuring it meets your requirements effectively.
 
 By utilizing ESPHome, you empower yourself to make ongoing improvements to your sensor setup, adapting it to suit your evolving needs. This capability not only enhances your project's functionality but also provides a platform for learning and experimentation with IoT development.
